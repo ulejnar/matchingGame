@@ -1,0 +1,114 @@
+*{
+    padding:0;
+    margin:0px;
+    box-sizing:border-box;
+}
+body{
+    height:100vh;
+    background: rgba(248, 248, 239, 0.2);
+    background-size: cover;
+   
+    
+    
+    
+    
+}
+#gameBoard{
+    width:73%;
+    height:90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1%;
+    background: plum;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    justify-content: center;
+}
+#startText{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: lightgoldenrodyellow;
+    font-size: 120px;
+    text-shadow: 6px 6px 0px rgba(0,0,0,0.2);
+    text-align: center; 
+}
+
+#scoreDiv{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color:lightgoldenrodyellow;
+    width:100%;
+    font-size: 40px;
+    text-shadow: 6px 6px 0px rgba(0,0,0,0.2);
+    text-align: center; 
+}
+#animalsImg{
+    width:150px;
+}
+#startButton{
+    background-color:darkmagenta;
+    border-radius:5%;
+    display: block;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 30px;
+    color:bisque;
+    width:160px;
+    height:60px;
+    
+}
+
+#scoreWindow{
+    width:100%;
+    margin:10px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+   font-size: 30px;
+   color: lightgoldenrodyellow;
+    
+}
+#confirmButton{
+    position:relative;
+    background-color:darkmagenta;
+    margin-left:10px;
+    border-radius:6%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 30px;
+    color: lightgoldenrodyellow;
+    width:100px;
+    height:40px;
+}
+
+.card{
+   
+    margin:0.5%;
+    width: 15.6%;
+    height:20.7%;
+    position:relative;
+    
+    
+}
+
+
+.overlay {
+    position: absolute;
+    
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    border-radius:5%;
+    
+  }
+.image{
+    position: absolute;
+    
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    border-radius:5%;
+    
+  }
+  

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styling.css">
+    <title>Document</title>
+</head>
+<body>
+        
+    <div id ="gameBoard">
+        
+    </div>
+    <script>
+        var gameBoard=document.getElementById("gameBoard");
+        var imageArray=["images/hippo.jpeg","images/hippo.jpeg" ,"images/dolphin.jpeg", "images/dolphin.jpeg","images/lion.jpeg",  "images/lion.jpeg","images/orca.jpeg","images/orca.jpeg","images/fox.jpeg", "images/panda.jpeg", "images/giraffe.jpeg", "images/deer.jpeg", "images/bear.jpeg", "images/fox.jpeg", "images/panda.jpeg", "images/giraffe.jpeg", "images/deer.jpeg", "images/bear.jpeg", "images/turtle.jpeg","images/turtle.jpeg", "images/crocodile.jpeg","images/crocodile.jpeg", "images/elephant.jpeg","images/elephant.jpeg"];
+           
+        var flipped_images=[];
+        var overlay_ids=[];
+        var card_flipped=0;
+        var score=0;
+        var scoreWindow;
+        var scoresArr=[];
+
+        function newSession(){
+            gameBoard.innerHTML="";
+            var startText =document.createElement("div");
+            startText.setAttribute("id","startText");
+            startText.innerHTML="Animals matching game";
+            gameBoard.appendChild(startText);
+
+            var scoreDiv=document.createElement("div");
+            scoreDiv.setAttribute("id","scoreDiv");
+
+            var animalsImg=document.createElement("img");
+            animalsImg.src="animals.jpg";
+            animalsImg.setAttribute("id","animalsImg");
+            gameBoard.appendChild(animalsImg);
+            
+            scoreDiv.innerHTML="Your best score: " +lowestScore(scoresArr);
+            if(scoresArr.length===0){
+                scoreDiv.innerHTML="Your best score: -";
+            }
+            gameBoard.appendChild(scoreDiv);
+
+            var startButton=document.createElement("button");
+            startButton.setAttribute("id","startButton");
+            startButton.innerHTML="start";
+            startButton.addEventListener("click", newBoard);
+            gameBoard.appendChild(startButton);
+        }
+        window.addEventListener("load",newSession());
+        
+        function newBoard(){
+
+         card_flipped=0;
+            score=0;
+            gameBoard.innerHTML="";
+
+            scoreWindow=document.createElement("div");
+            scoreWindow.setAttribute("id","scoreWindow");
+            scoreWindow.innerHTML="cards flipped: "+score;
+            gameBoard.appendChild(scoreWindow);
+    
+            arrayShuffle(imageArray);
+
+            for(var j=0; j<imageArray.length;j++){
+                var card =document.createElement("div");
+                card.classList.add("card");
+                gameBoard.appendChild(card);
+
+                var image =document.createElement("img");
+                image.className="image";
+                image.src=imageArray[j];
+                card.appendChild(image);
+
+                var overlay=document.createElement("img");
+                overlay.classList.add("overlay");
+                overlay.setAttribute("id","overlay"+j)
+                overlay.src="overlay.jpeg"
+                overlay.addEventListener("click", flipCard);
+                card.appendChild(overlay);
+        } 
+    }
+        
+    function flipCard(){
+        if( this.classList.length<2&&flipped_images.length<2&&this.getAttribute("id")!== overlay_ids[0]){
+            this.style.opacity="0%";
+            score++;
+            scoreWindow.innerHTML="cards flipped: "+score;
+            source=this.previousSibling.src;
+            tileId=this.getAttribute("id");
+
+            if(flipped_images.length===0){
+                flipped_images.push(source);
+                overlay_ids.push(tileId);
+            }
+            else if(flipped_images.length===1){
+                flipped_images.push(source);
+                overlay_ids.push(tileId);
+                var tile_1=document.getElementById(overlay_ids[0]);
+                var tile_2=document.getElementById(overlay_ids[1]);
+            
+                if(flipped_images[0]===flipped_images[1]){
+                    console.log("x");
+                 card_flipped+=2;
+                    tile_1.classList.add("flipped");
+                    tile_2.classList.add("flipped");
+                    flipped_images=[]
+                    overlay_ids=[];
+                    if (card_flipped===imageArray.length){
+                        scoreWindow.innerHTML="";
+                        scoreWindow.innerHTML="Your score is: "+score+". Do you want to play another game?"
+                        var confirmButton=document.createElement("button");
+                        confirmButton.setAttribute("id","confirmButton");
+                        confirmButton.innerHTML="yes";
+                        confirmButton.addEventListener("click", newSession);
+                        scoreWindow.appendChild(confirmButton);
+                    }
+                }
+                else{
+                    function flip2Back(){
+                        
+                        tile_1.style.opacity="100%";
+                        tile_2.style.opacity="100%";
+                        flipped_images=[];
+                        overlay_ids=[];
+                    }
+                    setTimeout(flip2Back,1000);
+                }
+            }
+        }
+    }
+        function lowestScore(arr){
+            var min=1000;
+            for(var i=0; i<arr.length;i++){
+                if(arr[i]<min){
+                    min=arr[i];
+                }
+            }
+            return min;
+        }
+           
+        function arrayShuffle(arr){
+            var takenIndices=[];
+
+            for(var i=0;i<arr.length-1;i++){
+            
+                if(takenIndices.includes(i)){
+                    continue; 
+                }
+                else{
+                    takenIndices.push(i);
+                }
+                var randIndex=Math.floor(Math.random() *arr.length);
+                
+                while(takenIndices.includes(randIndex)&&takenIndices.length<arr.length){
+                    randIndex=Math.floor(Math.random() *arr.length);
+                }
+                var temp=arr[i];
+                arr[i]=arr[randIndex];
+                arr[randIndex]=temp;
+            }
+            return arr;
+        }
+
+    </script>
+</body>
+
+</html>
